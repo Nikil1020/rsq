@@ -52,6 +52,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+
     'django.middleware.security.SecurityMiddleware'
 ]
 
@@ -91,11 +92,14 @@ DATABASES = {
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
 
+CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:63342',
-    # Add additional allowed origins here
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:8080',  # Allow requests from specific origin(s)
+    'http://127.0.0.1:8000',
+
 ]
+
 
 CORS_ALLOW_METHODS = [
     'POST',
@@ -107,12 +111,14 @@ CORS_ALLOW_METHODS = [
 ]
 
 CORS_ALLOW_HEADERS = [
+    'Accept',
+    'Accept-Language',
     'Content-Type',
     'Authorization',
     'X-Requested-With',
 ]
 
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_CREDENTIALS = CORS_ALLOW_ALL_ORIGINS
 
 
 # Password validation

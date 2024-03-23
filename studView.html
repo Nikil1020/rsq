@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Student</title>
+</head>
+<body>
+    <h1>Student Details</h1>
+
+    <form id="getStudentForm">
+        <label for="regno">Enter Registration Number:</label>
+        <input type="text" id="regno" name="regno">
+        <input type="submit" value="Get Student">
+    </form>
+    <!-- <button id="getAllStudentsBtn" type="submit" action="http://127.0.0.1:8000/api/all_students/">Get All Students</button> -->
+
+    <!-- <button id="getAllStudentsBtn">Get All Students</button><br><br> -->
+
+    <div id="studentDataDiv"></div>
+    <br>
+    <a href="home.html"><button>Return to homepage</button></a>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="retrieve.js"></script> 
+</body>
+</html>

@@ -93,6 +93,10 @@ class Rankview(APIView):
                 return Response({"Status_msg":"Deletion of stu_regno Successfull"},status=201)
             else:
                 return Response({"Status_msg":"Deletion of stu_regno unsuccessfull"},status=400)
+        else:
+            rank_obj = Rank.objects.all().order_by('student_regno')
+            rank_obj.delete()
+            return Response("DELETE SUCCESSFULL", status=201)
 
 
 class Grade_View(APIView):
@@ -151,15 +155,35 @@ class Mark_View(APIView):
         else:
             return Response({"Status_msg": "Mark does not exist"}, status = 400)
        
-    def put(self, request, reg = None):
-        if Marks.objects.filter(regno = reg).exists():
-            obj = Marks.objects.get(regno = reg)
-            serializer = Mark_Serializer(instance=obj, data=request.data)
-            if serializer.is_valid(raise_exception=True):
-                serializer.save()
-                return Response(serializer.data, status = 201)
+    # def put(self, request, reg = None):
+    #     if Marks.objects.filter(regno = reg).exists():
+    #         obj = Marks.objects.get(regno = reg)
+    #         serializer = Mark_Serializer(instance=obj, data=request.data)
+    #         if serializer.is_valid(raise_exception=True):
+    #             serializer.save()
+    #             return Response(serializer.data, status = 201)
+    #     else:
+    #         return Response({"Status_msg": "Mark does not exist"}, status = 400)
+    # from rest_framework import status
+
+
+    def put(self, request, reg=None):
+        try:
+            mark_obj = Marks.objects.get(regno=reg)
+        except Marks.DoesNotExist:
+            return Response({"Status_msg": "Mark does not exist"}, status=404)
+        
+        request_data = request.data.copy()  # Make a copy of the request data
+        request_data.pop('regno', None)  # Remove 'regno' field from the copy
+
+        serializer = Mark_Serializer(instance=mark_obj, data=request_data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=200)
         else:
-            return Response({"Status_msg": "Mark does not exist"}, status = 400)
+            return Response(serializer.errors, status=400)
+
+
 
 
     def get(self, request, reg = None):
@@ -183,6 +207,7 @@ class Mark_View(APIView):
                 return Response({"Status_msg": "Delete Successfull"}, status = 201)
             else:
                 return Response({"Status_msg":"Component does not exist"}, status = 400)
+        
        
 class fetchmark(APIView):
     def post(self,request):

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculate Grades</title>
+</head>
+<body>
+    <h1>Calculate Grades</h1>
+    <button id="fetchMarksBtn">Fetch Marks</button>
+    <button id="assignGradesBtn">Assign Grades</button>
+    <a href="home.html"><button>Return to homepage</button></a>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // Axios POST method for fetchmark view
+        document.getElementById('fetchMarksBtn').addEventListener('click', function() {
+            axios.post('http://127.0.0.1:8000/rsquare/Fetch/')
+                .then(function(response) {
+                    // Handle success
+                    console.log('Marks fetched successfully:', response.data);
+                    // If you want to display any message or perform any action on success, you can add it here
+                })
+                .catch(function(error) {
+                    // Handle error
+                    console.error('Error fetching marks:', error);
+                });
+        });
+
+        // Axios POST method for AssignGrades view
+        document.getElementById('assignGradesBtn').addEventListener('click', function() {
+            axios.post('http://127.0.0.1:8000/rsquare/Grades/')
+                .then(function(response) {
+                    // Handle success
+                    console.log('Grades assigned successfully:', response.data);
+                    // If you want to display any message or perform any action on success, you can add it here
+                })
+                .catch(function(error) {
+                    // Handle error
+                    console.error('Error assigning grades:', error);
+                });
+        });
+    </script>
+</body>
+</html>

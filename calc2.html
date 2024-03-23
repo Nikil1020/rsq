@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Marks</title>
+</head>
+<body>
+    <h1>Update Marks</h1>
+
+    <form id="updateMarksForm">
+        <label for="regno">Registration Number:</label>
+        <input type="number" id="regno" name="regno"><br><br>
+        <label for="mark1">Mark 1:</label>
+        <input type="number" id="mark1" name="mark1"><br><br>
+        <label for="mark2">Mark 2:</label>
+        <input type="number" id="mark2" name="mark2"><br><br>
+        <label for="mark3">Mark 3:</label>
+        <input type="number" id="mark3" name="mark3"><br><br>
+        <button type="submit" id="updatemarks">Update Marks</button>
+    </form>
+    <h4>Click here to update another student's mark</h4><br>
+    <a href="calc2.html"><button>Next Student</button></a>
+    <br><br>
+
+    <h2>Delete Rank and Grades of all the students</h2>
+    <button id="deletebutton" onclick="deleteRankAndGrade()">Delete</button>
+
+    <h2>Fetch Marks and Assign Grades of all the students</h2>
+    <button id="fetchMarksAndAssignGrades" onclick="fetchMarksAndAssignGrades()">Fetch Marks & Assign Grades</button>
+
+    <h4>Click here to return to the homepage</h4><br>
+    <a href="home.html"><button>Return to homepage</button></a>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        document.getElementById("updateMarksForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const sregno = document.getElementById("regno").value;
+            const smark1 = document.getElementById("mark1").value;
+            const smark2 = document.getElementById("mark2").value;
+            const smark3 = document.getElementById("mark3").value;
+
+            axios.put(`http://127.0.0.1:8000/rsquare/Marks/${sregno}`, {
+                regno: sregno,
+                mark1: smark1,
+                mark2: smark2,
+                mark3: smark3
+            })
+            .then(function(response) {
+                // Handle success
+                console.log('Marks updated successfully:', response.data);
+            })
+            .catch(function(error) {
+                // Handle error
+                console.error('Error updating marks:', error);
+            });
+        });
+
+        function deleteRankAndGrade() {
+            axios.delete('http://127.0.0.1:8000/rsquare/Rank/')
+                .then(function(rankResponse) {
+                    console.log('Rank deleted successfully:', rankResponse.data);
+                    // After rank deletion, delete the grade
+                    axios.delete('http://127.0.0.1:8000/rsquare/Grade/')
+                        .then(function(gradeResponse) {
+                            console.log('Grade deleted successfully:', gradeResponse.data);
+                        })
+                        .catch(function(gradeError) {
+                            console.error('Error deleting grade:', gradeError);
+                        });
+                })
+                .catch(function(rankError) {
+                    console.error('Error deleting rank:', rankError);
+                });
+        }
+
+        function fetchMarksAndAssignGrades() {
+            // Axios POST method for FetchMarks view
+            axios.post('http://127.0.0.1:8000/rsquare/Fetch/')
+                .then(function(response) {
+                    // Handle success
+                    console.log('Marks fetched successfully:', response.data);
+                    // If you want to display any message or perform any action on success, you can add it here
+                    
+                    // After fetching marks, assign grades
+                    assignGrades();
+                })
+                .catch(function(error) {
+                    // Handle error
+                    console.error('Error fetching marks:', error);
+                });
+        }
+
+        function assignGrades() {
+            // Axios POST method for AssignGrades view
+            axios.post('http://127.0.0.1:8000/rsquare/Grades/')
+                .then(function(response) {
+                    // Handle success
+                    console.log('Grades assigned successfully:', response.data);
+                    // If you want to display any message or perform any action on success, you can add it here
+                })
+                .catch(function(error) {
+                    // Handle error
+                    console.error('Error assigning grades:', error);
+                });
+        }
+    </script>
+</body>
+</html>

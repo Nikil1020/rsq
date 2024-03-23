@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get Marks by Registration Number</title>
+</head>
+<body>
+    <h1>Get Marks by Registration Number</h1>
+
+    <form id="getMarksByRegNoForm">
+        <label for="regno">Enter Registration Number:</label>
+        <input type="text" id="regno" name="regno">
+        <button type="submit">Get Marks</button>
+    </form>
+
+    <div id="marksDataDiv"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // Add the JavaScript code here
+        // Function to retrieve marks by registration number
+const getMarksByRegNo = document.getElementById('getMarksByRegNoForm');
+getMarksByRegNo.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    // Get registration number from user input
+    const regno = document.getElementById('regno').value.trim();
+
+    // Make a GET request to retrieve marks data for the provided registration number
+    axios.get(`http://127.0.0.1:8000/rsquare/Marks/${regno}`)
+        .then(function(response) {
+            // Handle success
+            displayMarkData(response.data);
+        })
+        .catch(function(error) {
+            // Handle error
+            console.error('Error fetching marks data:', error);
+        });
+});
+function displayMarkData(data) {
+    const outputDiv = document.getElementById('marksDataDiv');
+
+    if (data.Status_msg) {
+        // Display error message if marks don't exist
+        outputDiv.textContent = data.Status_msg;
+    } else {
+        // Create a table element
+        const table = document.createElement('table');
+        table.style.borderCollapse = 'collapse'; // Collapse border model
+
+        // Create table header row
+        const headerRow = table.insertRow();
+        headerRow.innerHTML = '<th>Reg No.</th><th>Mark 1</th><th>Mark 2</th><th>Mark 3</th>';
+
+        // Create a new row for marks data
+        const newRow = table.insertRow();
+        
+        // Insert cells into the row and populate them with marks data
+        newRow.insertCell().textContent = data.regno;
+        newRow.insertCell().textContent = data.mark1;
+        newRow.insertCell().textContent = data.mark2;
+        newRow.insertCell().textContent = data.mark3;
+
+        // Apply styling to the table cells to add border
+        const cells = newRow.cells;
+        for (let cell of cells) {
+            cell.style.border = '1px solid black';
+            cell.style.padding = '8px';
+        }
+
+        // Append the table to the outputDiv
+        outputDiv.innerHTML = '';
+        outputDiv.appendChild(table);
+    }
+}
+
+// function displayMarkData(data) {
+//     const outputDiv = document.getElementById('marksDataDiv');
+
+//     if (data.Status_msg) {
+//         // Display error message if marks don't exist
+//         outputDiv.textContent = data.Status_msg;
+//     } else {
+//         // Create a table element
+//         const table = document.createElement('table');
+
+//         // Create table header row
+//         const headerRow = table.insertRow();
+//         headerRow.innerHTML = '<th>Registration Number</th><th>Mark 1</th><th>Mark 2</th><th>Mark 3</th>';
+
+//         // Create a new row for marks data
+//         const newRow = table.insertRow();
+        
+//         // Insert cells into the row and populate them with marks data
+//         newRow.insertCell().textContent = data.regno;
+//         newRow.insertCell().textContent = data.mark1;
+//         newRow.insertCell().textContent = data.mark2;
+//         newRow.insertCell().textContent = data.mark3;
+
+//         // Append the table to the outputDiv
+//         outputDiv.innerHTML = '';
+//         outputDiv.appendChild(table);
+//     }
+// }
+
+// function displayMarkData(data) {
+//     const outputDiv = document.getElementById('marksDataDiv');
+//     if (data.Status_msg) {
+//         // Display error message if marks don't exist
+//         outputDiv.textContent = data.Status_msg;
+//     } else {
+//         // Display marks data
+//         outputDiv.innerHTML = `Reg No: ${data.regno}, Mark 1: ${data.mark1}, Mark 2: ${data.mark2}, Mark 3: ${data.mark3}`;
+//     }
+// }
+
+    </script>
+    <br><br><br>
+    <a href="home.html"><button>Return to homepage</button></a>
+</body>
+</html>

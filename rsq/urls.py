@@ -20,4 +20,5 @@ from rsquare import urls as hor
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('rsquare/',include(hor)),
+    
 ]

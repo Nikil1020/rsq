@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Marks</title>
+</head>
+<body>
+    <h1>Update Marks</h1>
+
+    <form id="updateMarksForm">
+        <label for="regno">Registration Number:</label>
+        <input type="number" id="regno" name="regno"><br><br>
+        <label for="mark1">Mark 1:</label>
+        <input type="number" id="mark1" name="mark1"><br><br>
+        <label for="mark2">Mark 2:</label>
+        <input type="number" id="mark2" name="mark2"><br><br>
+        <label for="mark3">Mark 3:</label>
+        <input type="number" id="mark3" name="mark3"><br><br>
+        <button type="button" id="updateMarksBtn" onclick="updateMarks()">Update Marks</button>
+    </form>
+    <h4>Click here to update another student's mark</h4><br>
+    <a href="calc2.html"><button>Next Student</button></a>
+    <br><br>
+
+    <h4>Click here to return to the homepage</h4><br>
+    <a href="home.html"><button>Return to homepage</button></a>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function updateMarks() {
+            const sregno = document.getElementById("regno").value;
+            const smark1 = document.getElementById("mark1").value;
+            const smark2 = document.getElementById("mark2").value;
+            const smark3 = document.getElementById("mark3").value;
+
+            axios.put(`http://127.0.0.1:8000/rsquare/Marks/${sregno}/`, {
+                mark1: smark1,
+                mark2: smark2,
+                mark3: smark3
+            })
+            .then(function(response) {
+                // Handle success
+                console.log('Marks updated successfully:', response.data);
+            })
+            .catch(function(error) {
+                // Handle error
+                console.error('Error updating marks:', error);
+            });
+        }
+    </script>
+</body>
+</html>
