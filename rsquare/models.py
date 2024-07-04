@@ -43,8 +43,23 @@ class EditMarks(models.Model):
     def __str__(self):
         return f"{self.regno}"
 
-
-
-
+class Users(models.Model):
+    name=models.CharField(max_length=10,null=True)
+    password=models.CharField(max_length=10,unique=True)
+    def __str__(self):
+        return f"{self.name}"
     
+class Staff(models.Model):
+    staff_name=models.CharField(max_length=10,null=True)
+    spassword=models.CharField(max_length=10,unique=True)
+    def __str__(self):
+        return f"{self.staff_name}"
 
+class Re_evaluate(models.Model):
+    regno = models.IntegerField(default=0)
+    mark1 = models.IntegerField(default=0)
+    mark2 = models.IntegerField(default=0)
+    mark3 = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.regno}"

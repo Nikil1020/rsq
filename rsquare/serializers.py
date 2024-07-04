@@ -1,5 +1,16 @@
 from rest_framework import serializers
 from .models import *
+
+class UI_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Users
+        fields = '__all__'
+
+class Staff_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Staff
+        fields = '__all__'
+
 class Student_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Student
@@ -25,4 +36,9 @@ class Mark_Serializer(serializers.ModelSerializer):
 class EditMarks_Serializer(serializers.ModelSerializer):
     class Meta:
         model = EditMarks
+        fields = '__all__'
+
+class RE_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Re_evaluate
         fields = '__all__'

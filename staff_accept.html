@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<style>
+            body {
+                font-family: 'Google Sans', Roboto, Arial, sans-serif;
+                /* Background Gradient */
+                background: linear-gradient(to bottom, #140e0e, #085ec1); 
+                color: white; 
+                /* Ensure the gradient fills the entire viewport height */
+                min-height: 100vh; 
+            }
+    
+            .container {
+                background-color: rgb(204, 224, 244);
+                color: black;
+                padding: 3rem;
+                border-radius: 10px;
+                box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+                margin-top: 5rem;
+            }
+
+    h2 {
+        color: #007bff; /* Primary blue color */
+    }
+
+    .btn-primary {
+        background-color: #28a745; /* Green button */
+        border-color: #28a745; 
+    }
+
+    .btn-primary:hover {
+        background-color: #007bff;
+        border-color: #1e7e34;
+    }
+
+    table{
+       border: 1px solid black;
+    }
+    button{
+        padding-right: 15px;
+        margin-right: 15px;
+    }
+    .button1:hover{
+        background-color: #2ba146;
+    }
+    .button2:hover{
+        background-color: red;
+    }
+            
+    .link-container a i {
+        margin-right: 15px; /* Adjust the value as needed for desired spacing */
+    }
+
+    
+</style>
+</head>
+<body>
+
+<div class="container mt-5"> 
+    <h2 class="text-center mb-4">Re-evaluation Requests from Students</h2>
+
+    <table id="marksTable" class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Reg No</th>
+                <th>SUB 1</th>
+                <th>SUB 2</th>
+                <th>SUB 3</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be loaded here -->
+        </tbody>
+    </table>
+
+    <div class="text-center"> 
+        <button id="Re_Assign_Grades" onclick="deleteRankAndGrade()" class="btn btn-primary">Publish Final Result</button>
+    </div>
+
+    <div class="link-container">
+        <a href="staff_landing.html"><i class="fas fa-home"></i></a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        function loadMarks() {
+            axios.get('http://127.0.0.1:8000/rsquare/REview/') 
+                .then(response => {
+                    const marksData = response.data; 
+                    const tableBody = document.getElementById('marksTable').querySelector('tbody');
+                    tableBody.innerHTML = ''; 
+
+                    var md;
+                    var put1, put2, put3; 
+
+                    marksData.forEach(mark => {
+                        const row = tableBody.insertRow();
+                        row.insertCell().textContent = mark.regno;
+                        row.insertCell().textContent = mark.mark1;
+                        row.insertCell().textContent = mark.mark2;
+                        row.insertCell().textContent = mark.mark3;
+
+                        const actionsCell = row.insertCell();
+                        const approveButton = document.createElement('button');
+                        approveButton.textContent = '✔'; 
+                        approveButton.className="button1";
+
+                        approveButton.addEventListener('click', () => {
+                            axios.get(`http://127.0.0.1:8000/rsquare/Marks/${mark.regno}`)
+                                .then(function(response) {
+                                    md = response.data;
+                                    if (mark.mark1 === 0 && mark.mark2 !== 0 && mark.mark3 !== 0){
+                                        put1 = md.mark1;
+                                        put2 = mark.mark2;
+                                        put3 = mark.mark3; 
+                                    } else if (mark.mark1 !== 0 && mark.mark2 === 0 && mark.mark3 !== 0){
+                                        put1 = mark.mark1;
+                                        put2 = md.mark2;
+                                        put3 = mark.mark3;
+                                    } else if (mark.mark1 !== 0 && mark.mark2 !== 0 && mark.mark3 === 0){
+                                        put1 = mark.mark1;
+                                        put2 = mark.mark2;
+                                        put3 = md.mark3;
+                                    } else if (mark.mark1 === 0 && mark.mark2 === 0 && mark.mark3 !== 0){
+                                        put1 = md.mark1;
+                                        put2 = md.mark2;
+                                        put3 = mark.mark3;
+                                    } else if (mark.mark1 === 0 && mark.mark2 !== 0 && mark.mark3 === 0){
+                                        put1 = md.mark1;
+                                        put2 = mark.mark2;
+                                        put3 = md.mark3;
+                                    } else if (mark.mark1 !== 0 && mark.mark2 === 0 && mark.mark3 === 0){
+                                        put1 = mark.mark1;
+                                        put2 = md.mark2;
+                                        put3 = md.mark3;
+                                    }
+                                    
+
+                                    // Now you have put1, put2, put3, proceed with the PUT request
+                                    return axios.put(`http://127.0.0.1:8000/rsquare/Marks/${mark.regno}`, {
+                                        regno: mark.regno,
+                                        mark1: put1,
+                                        mark2: put2,
+                                        mark3: put3
+                                    });
+                                })
+                                .then(function(response) {
+                                    // Handle success of the PUT request
+                                    console.log('Marks updated successfully:', response.data);
+                                    loadMarks(); // Reload the marks after successful update
+                                })
+                                .catch(function(error) {
+                                    // Handle error of either GET or PUT request
+                                    console.error('Error updating marks:', error);
+                                });
+                        }); // End of approveButton.addEventListener
+
+
+                        const rejectButton = document.createElement('button');
+                        rejectButton.textContent = '✖';
+                        rejectButton.className="button2";
+                        rejectButton.addEventListener('click', () => {
+                            axios.delete(`http://127.0.0.1:8000/rsquare/REview/${mark.regno}`) 
+                                .then(response => {
+                                    console.log('Mark rejected:', response.data);
+                                    loadMarks(); 
+                                })
+                                .catch(error => {
+                                    console.error('Error rejecting mark:', error);
+                                });
+                        });
+
+                        actionsCell.appendChild(approveButton);
+                        actionsCell.appendChild(rejectButton);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        }
+
+        loadMarks();
+    });
+
+    function deleteRankAndGrade() {
+            axios.delete('http://127.0.0.1:8000/rsquare/Rank/')
+                .then(function(rankResponse) {
+                    console.log('Rank deleted successfully:', rankResponse.data);
+                    // After rank deletion, delete the grade
+                    axios.delete('http://127.0.0.1:8000/rsquare/Grade/')
+                        .then(function(gradeResponse) {
+                            console.log('Grade deleted successfully:', gradeResponse.data);
+                            Re_Assign_Grades();
+                        })
+                        .catch(function(gradeError) {
+                            console.error('Error deleting grade:', gradeError);
+                        });
+                })
+                .catch(function(rankError) {
+                    console.error('Error deleting rank:', rankError);
+                });
+        }
+
+    function Re_Assign_Grades() {
+            // Axios POST method for FetchMarks view
+            axios.post('http://127.0.0.1:8000/rsquare/Fetch/')
+                .then(function(response) {
+                    // Handle success
+                    console.log('Marks fetched successfully:', response.data);
+                    // If you want to display any message or perform any action on success, you can add it here
+                    
+                    // After fetching marks, assign grades
+                    assignGrades();
+                })
+                .catch(function(error) {
+                    // Handle error
+                    console.error('Error fetching marks:', error);
+                });
+        }
+
+        function assignGrades() {
+            // Axios POST method for AssignGrades view
+            axios.post('http://127.0.0.1:8000/rsquare/Grades/')
+                .then(function(response) {
+                    // Handle success
+                    console.log('Grades assigned successfully:', response.data);
+                    alert("Grades re-assigned successfully");
+                    // If you want to display any message or perform any action on success, you can add it here
+                })
+                .catch(function(error) {
+                    // Handle error
+                    console.error('Error in re-assigning grades:', error);
+                });
+        }
+</script>
+
+</body>
+</html>

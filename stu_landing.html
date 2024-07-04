@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark Calculation</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">  -->
+    <style>
+        
+        /* style.css - embedded in HTML */
+        body {
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+            overflow-x: hidden;
+            margin: 0;
+        }
+  
+        .sidebar {
+          background-color: #202124;
+          color: #fff;
+          width: 250px;
+          height: 100vh; 
+          position: fixed; 
+          overflow-y: auto;
+        }
+      
+        .sidebar ul {
+          list-style-type: none;
+          padding: 0;
+          margin: 2rem 0; 
+        }
+      
+        .sidebar li {
+          padding: 15px 20px;
+          border-bottom: 1px solid #343539;
+          cursor: pointer;
+          transition: background-color 0.3s ease; 
+        }
+      
+        .sidebar li:hover {
+          background-color: #343539;
+        }
+      
+        .sidebar li a {
+          color: #fff; 
+          text-decoration: none; 
+        }
+      
+        .sidebar li i {
+          margin-right: 10px; 
+        }
+      
+        /* Style for main content area */
+        .main-content {
+          margin-left: 250px; 
+          padding: 20px;
+        }
+        
+        .hero {
+          position: relative; 
+          min-height: 100vh; 
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+        }
+
+        .blob-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; 
+            overflow: hidden;
+        }
+
+        .blob {
+          position: absolute;
+          background-color: rgba(100, 149, 237, 0.6);
+          border-radius: 50%;
+          filter: blur(150px);
+          transform: translate(-50%, -50%);
+        }
+
+        .blob:nth-child(1) {
+          width: 60vw;
+          height: 60vw;
+          top: 20%;
+          left: 20%;
+        }
+
+        .blob:nth-child(2) {
+          width: 80vw;
+          height: 80vw;
+          bottom: 20%;
+          right: 20%;
+        }
+      
+        .container {
+          background-color: rgba(255, 255, 255, 0.1); 
+          padding: 3rem;
+          border-radius: 10px;
+          backdrop-filter: blur(10px); 
+          text-align: center;
+        }
+      
+        h1, p {
+          font-family: 'Google Sans', Roboto, Arial, sans-serif; 
+        }
+
+        h1 {
+          font-size: 4rem; 
+          font-weight: 500;
+          margin-bottom: 1rem;
+        }
+      
+        .highlight {
+          color: #4285F4; 
+        }
+      
+        /* ... (rest of the styles are the same) */
+
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <ul>
+          <li><i class="fas fa-users"></i> <a href="studView.html">View Profile</a></li>
+          <li><i class="fas fa-eye"></i> <a href="stuviewmarks.html">View Marks</a></li>
+          <li><i class="fas fa-chart-bar"></i> <a href="stucalc.html">Display Grade</a></li>
+          <li><i class="fa-solid fa-rotate-right"></i> <a href="revapplying.html">Apply for Re-evaluation</a></li>
+        </ul>
+      </div>
+
+    <div class="main-content">
+      <div class="hero">
+        <div class="blob-container">
+          <div class="blob"></div>
+          <div class="blob"></div>
+        </div>
+        <div class="container"> 
+            <h1 class="display-4 mb-4">Welcome to <span class="highlight">Mark Calculation!</span></h1>
+            <p class="lead">Manage your student records and calculate grades efficiently.</p>
+        </div>
+      </div>
+    </div>
+</body>
+</html>

@@ -4,21 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Marks</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+            body {
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            /* Background Gradient */
+            background: linear-gradient(to bottom, #213A5F, #526172); 
+            color: white; 
+            /* Ensure the gradient fills the entire viewport height */
+            min-height: 100vh; 
+        }
+
+        .container {
+            background-color: white;
+            color: black;
+            padding: 3rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-top: 5rem;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column; 
+        }
+
+        h1 {
+            color: #4285F4; 
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 0.5rem; 
+        }
+
+        input[type="text"], input[type="number"] {
+            padding: 0.5rem;
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            margin-bottom: 1rem;
+            width: 300px; 
+        }
+
+        button { 
+            background-color: #4285F4; 
+            color: white; 
+            border: none; 
+            padding: 0.5rem 1rem; 
+            border-radius: 5px; 
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 200px; 
+        }
+        
+        button:hover { 
+            background-color: #357ae8; 
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            text-decoration: none;
+        }
+
+        .link-container a i {
+            margin-right: 15px; 
+        }
+    </style>
 </head>
 <body>
-    <h1>Add Marks</h1>
+    <div class="container">
+        <h1 class="text-center">Add Marks</h1>
+        <form id="markForm" class="form-container"> 
+            <div class="form-group">
+                <label for="regno" style="padding-right:5px;">RegNo:</label>
+                <input type="text" id="regno" name="regno" required>
+            </div>
+            <div class="form-group">
+                <label for="mark1" style="padding-right:5px;">Mark 1:</label>
+                <input type="number" id="mark1" name="mark1" required>
+            </div>
+            <div class="form-group">
+                <label for="mark2" style="padding-right:5px;">Mark 2:</label>
+                <input type="number" id="mark2" name="mark2" required>
+            </div>
+            <div class="form-group">
+                <label for="mark3" style="padding-right:5px;">Mark 3:</label>
+                <input type="number" id="mark3" name="mark3" required>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
 
-    <form id="markForm">
-        <label for="regno">Registration Number:</label>
-        <input type="text" id="regno" name="regno"><br><br>
-        <label for="mark1">Mark 1:</label>
-        <input type="number" id="mark1" name="mark1"><br><br>
-        <label for="mark2">Mark 2:</label>
-        <input type="number" id="mark2" name="mark2"><br><br>
-        <label for="mark3">Mark 3:</label>
-        <input type="number" id="mark3" name="mark3"><br><br>
-        <button type="submit">Submit</button>
-    </form>
+        <br>
+        <div class="link-container">
+            <a href="staff_landing.html"><i class="fas fa-home"></i>Return to homepage</a>
+        </div>
+        <br>
+        <div class="link-container">
+            <a href="marks.html"><i class="fas fa-user-plus"></i>Add another Student's mark</a>
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
@@ -30,25 +122,19 @@
             const mark2 = document.getElementById("mark2").value;
             const mark3 = document.getElementById("mark3").value;
 
-            axios.post('http://127.0.0.1:8000/rsquare/Marks/', {
+            axios.post('http://127.0.0.1:8000/rsquare/Marks/', { 
                 regno: regno,
                 mark1: mark1,
                 mark2: mark2,
                 mark3: mark3
             })
             .then(function(response) {
-                // Handle success
                 alert("Marks added successfully");
             })
             .catch(function(error) {
-                // Handle error
                 console.error('Error adding marks:', error);
             });
         });
     </script>
-    <h4>Click here to return to the homepage</h4><br>
-    <a href="home.html"><button>Return to homepage</button></a>
-    <h4>Click here to add another student's mark</h4><br>
-    <a href="marks.html"><button>Next Student</button></a>
 </body>
 </html>

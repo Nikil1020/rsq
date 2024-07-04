@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSQUARE - About</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: 'Google Sans', Roboto, Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .container-fluid {
+      padding: 0px; 
+      margin-top: -30px; 
+    }
+
+    /* Header Styles (same as features.html) */
+    .nav-link {
+      color: #4285F4; 
+      transition: color 0.3s ease;
+      background-color: #4285f4; 
+      background-image: linear-gradient(to bottom right, #4285f4, #64a2f9, #4285f4); 
+      background-size: 200% 200%;
+      animation: glitter-animation 2s linear infinite; 
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent; 
+    }
+
+    .nav-link:hover { 
+      background-image: none; 
+      color: #b56969; 
+    }
+
+    @keyframes glitter-animation {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    .navbar {
+        background-color: #fff; 
+    }
+
+    .navbar-brand {
+        font-weight: bold;
+        color: #4285F4;
+    }
+
+    .navbar-nav .nav-link {
+        color: #4285F4;
+    }
+
+    /* Hero Section Styles (Modified for About Page) */
+    .hero {
+      position: relative; 
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .blob-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; 
+        overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      background-color: rgba(100, 149, 237, 0.6);
+      border-radius: 60%; 
+      filter: blur(150px);
+      transform: translate(-50%, -50%);
+    }
+
+    .blob:nth-child(1) {
+      width: 60vw;
+      height: 60vw;
+      top: 20%;
+      left: 20%;
+    }
+
+    .blob:nth-child(2) {
+      width: 80vw;
+      height: 80vw;
+      bottom: 20%;
+      right: 20%;
+    }
+
+    .hero-content h1 { 
+      font-size: 4rem; 
+      font-weight: 500;
+      margin-bottom: 1.5rem; 
+    }
+
+    .highlight {
+      color: #4285F4; 
+    }
+
+    .hero-content p { 
+      font-size: 1.1rem; 
+      margin-bottom: 1rem; 
+    }
+
+    /* About Content Styling (Modified from features.html) */
+    .about-content {
+      margin-top: -200px; 
+      padding-bottom: 10px;
+    }
+
+    .about-content h2 {
+      color: #fff;
+      text-align: center; 
+      margin-bottom: 20px;
+    }
+
+    .about-content h3 {
+      color: #fff; 
+      margin-bottom: 10px; 
+    }
+
+    .about-content p {
+      color: #ddd; 
+      background: linear-gradient(342deg, rgb(187, 185, 185) 0%, rgba(44,66,105,1) 51%, rgb(1, 1, 41) 73%, rgb(31, 46, 70) 97%); /* Gradient background */
+      padding: 20px;
+      margin-bottom: 15px;
+      border-radius: 15px; 
+    }
+
+    .team-members {
+      margin-top: 30px;
+      text-align: center; 
+    }
+
+    .team-members h3 {
+      color: #fff;
+      margin-bottom: 10px;
+    }
+
+    .team-members ul {
+      list-style: none; 
+      padding: 0; 
+      display: inline-block; 
+    }
+
+    .team-members li {
+      display: inline; 
+      margin: 0 10px; 
+      color: #ddd;
+    }
+
+    /* Footer Styles (same as features.html) */
+    footer {
+        background-color: #333;
+        color: #fff;
+        padding: 1rem 0;
+        text-align: center;
+    }
+
+    footer a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    footer a:hover {
+        text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" style="color: #4285F4" href="#">RSQUARE</a>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item"><a class="nav-link" href="features.html" 
+        style="color: #4285F4; 
+               transition: color 0.3s ease, text-decoration 0.3s ease; /* Add text-decoration transition */" 
+        onmouseover="this.style.color='#000000'; this.style.textDecoration = 'underline'; this.style.textDecorationColor='#4285F4';" 
+        onmouseout="this.style.color='#4285F4'; this.style.textDecoration = 'none';">Features</a></li>
+    
+    <li class="nav-item"><a class="nav-link" href="about.html" 
+        style="color: #4285F4; 
+               transition: color 0.3s ease, text-decoration 0.3s ease;" 
+        onmouseover="this.style.color='#000000'; this.style.textDecoration = 'underline'; this.style.textDecorationColor='#4285F4';" 
+        onmouseout="this.style.color='#4285F4'; this.style.textDecoration = 'none';">About</a></li>
+    
+    <li class="nav-item"><a class="nav-link" href="login.html" 
+        style="color: #4285F4; 
+               transition: color 0.3s ease, text-decoration 0.3s ease;" 
+        onmouseover="this.style.color='#000000'; this.style.textDecoration = 'underline'; this.style.textDecorationColor='#4285F4';" 
+        onmouseout="this.style.color='#4285F4'; this.style.textDecoration = 'none';">Login</a></li>
+    </ul>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="hero">
+        <div class="blob-container">
+            <div class="blob"></div>
+            <div class="blob"></div>
+        </div>
+        <div class="hero-content">
+            <h1>About <span class="highlight">RSQUARE</span> </h1>
+            <p>Learn more about the system designed to revolutionize grade re-evaluation.</p>
+        </div>
+    </div>
+
+    <div class="container about-content">
+        <h2>About RSQUARE: Ensuring Fairness in Relative Grading</h2>
+        <p>RSQUARE is a cutting-edge grade re-evaluation system designed to address the inherent challenges of maintaining fairness within relative grading environments. Developed by a team of dedicated student engineers, RSQUARE provides a streamlined and transparent process for managing grade adjustments, ensuring that all students are treated equitably.</p>
+
+        <h3>The Challenge</h3>
+        <p>In relative grading systems, a single student's mark change due to re-evaluation can trigger a cascade of adjustments across the entire class. This often leads to complexities in ensuring timely and accurate recalculations, communicating changes effectively, and maintaining fairness. Traditional methods often fail to adequately address these complexities, leaving some students unaware of their grade changes and potentially impacting their academic standing.</p>
+
+        <h3>The RSQUARE Solution</h3>
+        <p>RSQUARE tackles this challenge head-on by providing an automated and percentile-based solution. The system automatically recalculates grades for all students whenever a re-evaluation occurs, ensuring that the impact of individual mark changes is accurately reflected across the entire class. Moreover, RSQUARE provides a transparent platform where students can view their updated grades and receive timely notifications, eliminating uncertainty and promoting fairness.</p>
+
+        <h3>Commitment to Excellence</h3>
+        <p>The development team behind RSQUARE is committed to providing educational institutions with a reliable and user-friendly tool that enhances the integrity and efficiency of the grading process. RSQUARE aims to empower both faculty and students by streamlining administrative tasks, improving communication, and ensuring that every student's academic performance is evaluated fairly and transparently.</p>
+
+        <div class="team-members">
+          <h3>Developed By:</h3>
+          <ul>
+            <li>NAVEEN BABU N R</li>
+            <li>NIKIL N</li>
+            <li>SAJEEVAN A</li>
+          </ul>
+        </div>
+    </div>
+  </div>
+
+  <footer class="container py-4 text-center">
+    <p>© 2023 Your Company. <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

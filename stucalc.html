@@ -3,17 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Get Marks by Registration Number</title>
+    <title>Get Grades by Registration Number</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-          body {
+        body {
             font-family: 'Google Sans', Roboto, Arial, sans-serif;
-            /* Background Gradient */
             background: linear-gradient(to bottom, #213A5F, #526172); 
             color: white; 
-            /* Ensure the gradient fills the entire viewport height */
             min-height: 100vh; 
         }
 
@@ -78,7 +76,7 @@
             margin-right: 15px; 
         }
 
-        #marksDataDiv {
+        #gradesDataDiv {
             margin-top: 2rem;
             border: 1px solid #ced4da;
             padding: 1rem;
@@ -86,13 +84,12 @@
             text-align: center; 
         }
 
-        /* Style the table to make it look better */
-        #marksDataDiv table {
+        #gradesDataDiv table {
             width: 100%;
             border-collapse: collapse; 
         }
 
-        #marksDataDiv th, #marksDataDiv td {
+        #gradesDataDiv th, #gradesDataDiv td {
             border: 1px solid #070707;
             padding: 8px;
         }
@@ -100,80 +97,67 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="text-center">Get Marks by Registration Number</h1>
-        <form id="getMarksByRegNoForm" class="form-container"> 
+        <h1 class="text-center">Get Grades by Registration Number</h1>
+        <form id="getGradesByRegNoForm" class="form-container"> 
             <div class="form-group">
                 <label for="regno">Enter Registration Number:</label>
                 <input type="text" id="regno" name="regno" required>
             </div>
-            <button type="submit">Get Marks</button>
+            <button type="submit">Show Grades</button>
         </form>
 
-        <div id="marksDataDiv"></div>
+        <div id="gradesDataDiv"></div>
 
         <br>
         <div class="link-container">
-            <a href="staff_landing.html"><i class="fas fa-home"></i>Return to homepage</a>
+            <a href="stu_landing.html"><i class="fas fa-home"></i>Return to homepage</a>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
-        // Add the JavaScript code here
-        const getMarksByRegNo = document.getElementById('getMarksByRegNoForm');
-getMarksByRegNo.addEventListener('submit', function(event) {
-    event.preventDefault();
+        const getGradesByRegNo = document.getElementById('getGradesByRegNoForm');
+        getGradesByRegNo.addEventListener('submit', function(event) {
+            event.preventDefault();
 
-    // Get registration number from user input
-    const regno = document.getElementById('regno').value.trim();
-
-    // Make a GET request to retrieve marks data for the provided registration number
-    axios.get(`http://127.0.0.1:8000/rsquare/Marks/${regno}`)
-        .then(function(response) {
-            // Handle success
-            displayMarkData(response.data);
-        })
-        .catch(function(error) {
-            // Handle error
-            console.error('Error fetching marks data:', error);
+            const regno = document.getElementById('regno').value.trim();
+            axios.get(`http://127.0.0.1:8000/rsquare/Grade/${regno}`) 
+                .then(response => {
+                    displayGradeData(response.data);
+                })
+                .catch(error => {
+                    console.error('Error fetching grades data:', error);
+                });
         });
-});
-function displayMarkData(data) {
-    const outputDiv = document.getElementById('marksDataDiv');
 
-    if (data.Status_msg) {
-        // Display error message if marks don't exist
-        outputDiv.textContent = data.Status_msg;
-    } else {
-        // Create a table element
-        const table = document.createElement('table');
-        table.style.borderCollapse = 'collapse'; // Collapse border model
+        function displayGradeData(data) {
+            const outputDiv = document.getElementById('gradesDataDiv');
 
-        // Create table header row
-        const headerRow = table.insertRow();
-        headerRow.innerHTML = '<th>Reg No.</th><th>Mark 1</th><th>Mark 2</th><th>Mark 3</th>';
+            if (data.Status_msg) {
+                outputDiv.textContent = data.Status_msg;
+            } else {
+                const table = document.createElement('table');
+                table.style.borderCollapse = 'collapse';
 
-        // Create a new row for marks data
-        const newRow = table.insertRow();
-        
-        // Insert cells into the row and populate them with marks data
-        newRow.insertCell().textContent = data.regno;
-        newRow.insertCell().textContent = data.mark1;
-        newRow.insertCell().textContent = data.mark2;
-        newRow.insertCell().textContent = data.mark3;
+                const headerRow = table.insertRow();
+                headerRow.innerHTML = '<th>Reg No.</th><th>Subject 1</th><th>Subject 2</th><th>Subject 3</th>';
 
-        // Apply styling to the table cells to add border
-        const cells = newRow.cells;
-        for (let cell of cells) {
-            cell.style.border = '1px solid black';
-            cell.style.padding = '8px';
+                const newRow = table.insertRow();
+                newRow.insertCell().textContent = data.reg_no; 
+                newRow.insertCell().textContent = data.sub1_grade;
+                newRow.insertCell().textContent = data.sub2_grade;
+                newRow.insertCell().textContent = data.sub3_grade;
+
+                const cells = newRow.cells;
+                for (let cell of cells) {
+                    cell.style.border = '1px solid black';
+                    cell.style.padding = '8px';
+                }
+
+                outputDiv.innerHTML = '';
+                outputDiv.appendChild(table);
+            }
         }
-
-        // Append the table to the outputDiv
-        outputDiv.innerHTML = '';
-        outputDiv.appendChild(table);
-    }
-}
     </script>
 </body>
 </html>

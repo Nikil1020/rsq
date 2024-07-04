@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RSQUARE - Features</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: 'Google Sans', Roboto, Arial, sans-serif;
+      background-color: #000;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .container-fluid {
+      padding: 0px; 
+      margin-top: -30px;
+    }
+
+    /* Header Styles */
+    .nav-link {
+      color: #4285F4; 
+      transition: color 0.3s ease;
+      background-color: #4285f4; 
+      background-image: linear-gradient(to bottom right, #4285f4, #64a2f9, #4285f4); 
+      background-size: 200% 200%;
+      animation: glitter-animation 2s linear infinite; 
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent; 
+    }
+
+    .nav-link:hover { 
+      background-image: none; 
+      color: #b56969; 
+    }
+
+    @keyframes glitter-animation {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 100%; }
+    }
+
+    .navbar {
+        background-color: #fff; 
+    }
+
+    .navbar-brand {
+        font-weight: bold;
+        color: #4285F4;
+    }
+
+    .navbar-nav .nav-link {
+        color: #4285F4;
+    }
+
+    /* Hero Section Styles (Modified for Features Page) */
+    .hero {
+      position: relative; 
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .blob-container {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1; 
+        overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      background-color: rgba(100, 149, 237, 0.6);
+      border-radius: 60%;
+      filter: blur(150px);
+      transform: translate(-50%, -50%);
+    }
+
+    .blob:nth-child(1) {
+      width: 60vw;
+      height: 60vw;
+      top: 20%;
+      left: 20%;
+    }
+
+    .blob:nth-child(2) {
+      width: 80vw;
+      height: 80vw;
+      bottom: 20%;
+      right: 20%;
+    }
+
+    .hero-content h1 { 
+      font-size: 4rem; /* Reduced font size */
+      font-weight: 500;
+      margin-bottom: 1.5rem; /* Increased margin */
+    }
+
+    .highlight {
+      color: #4285F4; 
+    }
+
+    .hero-content p { 
+      font-size: 1.1rem; /* Reduced font size */
+      margin-bottom: 1rem;
+    }
+
+    /* Feature List Styling */
+    .feature-list {
+      margin-top: -200px; 
+      padding-bottom: 10px;
+    }
+
+    .feature-list ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feature-list li {
+      
+      background: linear-gradient(342deg, rgb(187, 185, 185) 0%, rgba(44,66,105,1) 51%, rgb(1, 1, 41) 73%, rgb(31, 46, 70) 97%);
+      color: #333;
+      padding: 20px; 
+      margin-bottom: 15px; 
+      border-radius: 15px;
+    }
+
+    .feature-list h3 {
+      color: #fff; 
+      margin-bottom: 10px;
+    }
+
+    .feature-list p {
+      color: #ddd;
+    }
+
+    /* Footer Styles */
+    footer {
+        background-color: #333;
+        color: #fff;
+        padding: 1rem 0;
+        text-align: center;
+    }
+
+    footer a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    footer a:hover {
+        text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <a class="navbar-brand" style="color: #4285F4" href="#">RSQUARE</a>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item"><a class="nav-link" href="features.html" 
+        style="color: #4285F4; 
+               transition: color 0.3s ease, text-decoration 0.3s ease; /* Add text-decoration transition */" 
+        onmouseover="this.style.color='#000000'; this.style.textDecoration = 'underline'; this.style.textDecorationColor='#4285F4';" 
+        onmouseout="this.style.color='#4285F4'; this.style.textDecoration = 'none';">Features</a></li>
+    
+    <li class="nav-item"><a class="nav-link" href="about.html" 
+        style="color: #4285F4; 
+               transition: color 0.3s ease, text-decoration 0.3s ease;" 
+        onmouseover="this.style.color='#000000'; this.style.textDecoration = 'underline'; this.style.textDecorationColor='#4285F4';" 
+        onmouseout="this.style.color='#4285F4'; this.style.textDecoration = 'none';">About</a></li>
+    
+    <li class="nav-item"><a class="nav-link" href="login.html" 
+        style="color: #4285F4; 
+               transition: color 0.3s ease, text-decoration 0.3s ease;" 
+        onmouseover="this.style.color='#000000'; this.style.textDecoration = 'underline'; this.style.textDecorationColor='#4285F4';" 
+        onmouseout="this.style.color='#4285F4'; this.style.textDecoration = 'none';">Login</a></li>
+    </ul>
+  </nav>
+
+  <div class="container-fluid">
+    <div class="hero">
+        <div class="blob-container">
+            <div class="blob"></div>
+            <div class="blob"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Key <span class="highlight">Features</span> of RSQUARE </h1>
+            <p>Explore the functionalities that make RSQUARE a game-changer in grade re-evaluation.</p>
+        </div>
+    </div>
+
+    <div class="container feature-list">
+      <ul>
+        <li>
+          <h3>Automated Grade Recalculation</h3>
+          <p>RSQUARE automates the process of recalculating grades after re-evaluations, eliminating the need for manual adjustments and reducing human error. This ensures that grades are updated accurately and efficiently, freeing up valuable time for instructors.</p>
+        </li>
+        <li>
+          <h3>Fair and Transparent Adjustments</h3>
+          <p>RSQUARE uses a percentile-based system to adjust grades fairly. This means that all students' grades are recalculated relative to the new highest score, ensuring consistency and transparency in the grading process.</p>
+        </li>
+        <li>
+          <h3>Improved Communication and Notification</h3>
+          <p>RSQUARE provides a clear and accessible platform for students and faculty to view grade changes. Students receive notifications when their grades are updated, providing them with timely information about their academic performance.</p>
+        </li>
+        <li>
+          <h3>Streamlined Re-evaluation Workflow</h3>
+          <p>RSQUARE simplifies the re-evaluation process, allowing students to submit requests online and providing instructors with a centralized system to review and approve them. This streamlined workflow reduces administrative burden and ensures timely grade adjustments.</p>
+        </li>
+        <li>
+          <h3>Secure and Robust Platform</h3>
+          <p>Built with the Django framework, RSQUARE offers a secure and reliable platform for managing sensitive student data. The system is designed to ensure data integrity and protect student privacy.</p>
+        </li>
+      </ul>
+    </div> 
+  </div>
+
+  <footer class="container py-4 text-center">
+    <p>© 2023 Your Company. <a href="#">Privacy</a> | <a href="#">Terms</a></p>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

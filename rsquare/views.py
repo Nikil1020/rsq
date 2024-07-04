@@ -431,3 +431,69 @@ class EditMarks_view(APIView):
             obj = EditMarks.objects.all().order_by('regno')
             serializer = EditMarks_Serializer(instance=obj, many=True)
             return Response(serializer.data, status=201)  
+    
+class UI_view(APIView):
+    def post(self, request):
+        serializer = UI_Serializer(data = request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=201)
+        else:
+            return Response({"Status_msg": "editmark doesn't exist"}, status = 400)
+        
+class Staff_view(APIView):
+    def post(self, request):
+        serializer = Staff_Serializer(data = request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=201)
+        else:
+            return Response({"Status_msg": "editmark doesn't exist"}, status = 400)
+        
+class LoginView(APIView):
+    def get(self, request, un = None, up=None):
+        if un and up:
+            if Users.objects.filter(name=un, password=up).exists():
+                if Staff.objects.filter(staff_name=un, spassword=up).exists():
+                    obj = Staff.objects.get(staff_name=un, spassword=up)
+                    serializer = Staff_Serializer(instance=obj)
+                    return Response(serializer.data, status=200)    
+                else:
+                    obj = Users.objects.get(name=un, password=up)
+                    serializer = UI_Serializer(instance=obj)
+                    return Response(serializer.data, status=201)
+            else:
+                return Response({"Status_msg":"User does not exist"}, status = 400)
+        else:
+            return Response({"Status_msg":"User does not exist"}, status = 400)
+
+class RE_view(APIView):
+    def post(self, request):
+        serializer = RE_Serializer(data = request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data, status=201)
+        else:
+            return Response({"Status_msg": "Mark does not exist"}, status = 400)
+
+    def get(self, request, reg = None):
+        if reg:
+            if Re_evaluate.objects.filter(regno = reg).exists():
+                obj = Re_evaluate.objects.get(regno = reg)
+                serializer = RE_Serializer(instance=obj)
+                return Response(serializer.data, status=201)
+            else:
+                return Response({"Status_msg":"Mark does not exist"}, status = 400)
+        else:
+            obj = Re_evaluate.objects.all().order_by('regno')
+            serializer = RE_Serializer(instance=obj, many=True)
+            return Response(serializer.data, status=201)
+       
+    def delete(self, request, reg = None):
+        if reg:
+            if Re_evaluate.objects.filter(regno = reg).exists():
+                obj = Re_evaluate.objects.get(regno = reg)
+                obj.delete()
+                return Response({"Status_msg": "Delete Successfull"}, status = 201)
+            else:
+                return Response({"Status_msg":"Component does not exist"}, status = 400)
